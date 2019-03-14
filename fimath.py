@@ -3,8 +3,10 @@ class Fi:
 
     # Constructor takes a base10 value
     def __init__(self, value, n_bits=32, n_fbits=0, signed=False, *args, **kwargs):
-        # TODO: add override kwarg to prevent sign coersion
-        # TODO: args and kwargs definition/unpacking
+        # TODO: Add override kwarg to prevent sign coersion
+        # TODO: args and kwargs definition/
+        # TODO: Implement an actual value that can be represented by the given number of bits
+        # TODO: Implement an error between the desired and actual value
 
         # Validate inputs
         # Make sure n_bits is >= n_fbits
@@ -49,7 +51,6 @@ class Fi:
             print(f"{key} : {kwargs[key]}")
 
     def bin(self, binary_point_on=True, grouping=0):
-        # TODO: Add negative value support
 
         if not isinstance(binary_point_on, bool):
             raise TypeError("Argument 'binary_point_on' must be of type 'bool'")
@@ -132,13 +133,20 @@ class Fi:
         return twos_comp_string
 
     # TODO: Define builtin functions using Python Data Model (CH 3)
+    # TODO: Implement basic math functions for two Fi objects
+    #       Arithmetic should return a Fi object
 
+    # For addition, n_bits + 1, n_fbits the same (as the largest for each) need some type checking
     def __add__(self, x):
-        return self.value + x
+        return Fi(self.value + x, n_bits=self.n_bits + 1, n_fbits=self.n_fbits, signed=self.signed);
+
+    def __radd__(self, x):
+        return self.value + x # Fi(self.value + x, n_bits=self.n_bits + 1, n_fbits=self.n_fbits, signed=self.signed)
 
     def __sub__(self, x):
         return self.value - x
 
+    # For multiplication, n_bits * 2, n_fbits * 2
     def __mul__(self, x):
         return self.value * x
 
